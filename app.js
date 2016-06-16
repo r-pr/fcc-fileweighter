@@ -26,6 +26,6 @@ app.use(function(err, req, res, next){
   res.sendFile(path.join(__dirname,'pages','servererror.html'));
 });
 
-app.listen( process.env.port || 8080, function(){
+app.listen( process.env.PORT || 8080, function(){
   console.log('express started');
 });
