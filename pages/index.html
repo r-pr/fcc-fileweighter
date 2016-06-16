@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Fileweighter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+<style>
+@import 'https://fonts.googleapis.com/css?family=Pacifico|Trirong';
+body {
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-family: 'Trirong', serif;
+    font-size: 18px;
+}
+h1 {
+    font-family: 'Pacifico', cursive;
+    font-size: 60px;
+}
+h2 {
+    margin-top: -30px;
+    font-family: 'Trirong', serif;
+    font-size: 18px;
+}
+.file_input {
+    position: absolute;
+    left: -1000px;
+}
+.button {
+    background-color: black;
+    color: white;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-family: 'Trirong', serif;
+    font-size: 18px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin: 30px auto 30px auto;
+    width: 150px;
+}
+
+#info {
+    width: 300px;
+    margin: auto;
+    word-wrap: break-word;
+}
+
+</style>
+
+</head>
+
+<body>
+<h1>Fileweighter</h1>
+<h2>(a fancy way to check your files' size)</h2>
+
+<input type="file" name="file" id="file" class="file_input" />
+<label for="file" class="button">Choose a file</label>
+
+<div id="info"><p>
+        <noscript>
+        This app requires JavaScript to be enabled.
+        </noscript>
+</p></div>
+
+<script>
+    document.getElementById('file').onchange = function(e) { 
+        var file = this.files[0];
+        
+        var formData = new FormData();
+        formData.append("file", file);
+        
+        var xhr = new XMLHttpRequest();
+        
+        xhr.open("POST", "/post", true);
+        xhr.onload = function (e) {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    var fileSize = JSON.parse(xhr.responseText).size;
+                    document.getElementById('info').firstChild.innerHTML =
+                       '<b>' + file.name + '</b> is ' + fileSize + ' bytes long';
+                    
+                } else {
+                    console.error(xhr.statusText);
+                }
+            }
+        };
+        xhr.onerror = function (e) {
+            console.error(xhr.statusText);
+        };
+        xhr.send(formData);
+    };
+</script>
+
+</body>
+</html>

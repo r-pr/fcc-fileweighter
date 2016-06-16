@@ -1,0 +1,16 @@
+{
+  "name": "fileweighter",
+  "version": "0.0.0",
+  "description": "file metadata microservice",
+  "main": "app.js",
+  "repository": "https://github.com/r-pr/fcc-fileweighter",
+  "author": "r-pr",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "multer": "^1.1.0",
+    "path": "^0.12.7"
+  }
+}
